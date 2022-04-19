@@ -66,8 +66,9 @@ def draw_poly(org_img, b_img, left_poly, right_poly, rad_cur, car_offset):
     polygon_XY = np.hstack((left_line_XY, right_line_XY))
     # print(polygon_XY.shape)
 
+    _b_img = np.zeros_like(b_img)
     out_img = np.dstack(
-        (b_img, b_img, b_img))*255
+        (_b_img, _b_img, _b_img))
     # plot polygon
     cv2.fillPoly(out_img, polygon_XY.astype(np.int32), (255, 0, 0))
     # Plot the fitted polynomial

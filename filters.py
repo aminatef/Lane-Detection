@@ -43,7 +43,7 @@ def show_vid(name, func):
 
 
 def abs_sobel_(img, min_thresh=25, max_thresh=255, sobel_kernel=3):
-    hls = cv2.cvtColor(img, cv2.COLOR_BGR2HLS).astype(np.float)
+    hls = cv2.cvtColor(img, cv2.COLOR_RGB2HLS).astype(np.float)
     #hls = cv2.cvtColor(img, cv2.COLOR_RGB2HLS).astype(np.float)
     h_channel = hls[:, :, 0]
     l_channel = hls[:, :, 1]
@@ -110,7 +110,7 @@ def color_thersh_(img, thresh=0):
 
 
 def white_threshold(rgbimg):
-    HLS = cv2.cvtColor(rgbimg, cv2.COLOR_BGR2HLS)
+    HLS = cv2.cvtColor(rgbimg, cv2.COLOR_RGB2HLS)
     # HLS upper and lower limit for white colors
     lower = np.array([0, 200, 0])
     upper = np.array([255, 255, 255])
@@ -119,7 +119,7 @@ def white_threshold(rgbimg):
 
 
 def yellow_threshold(rgbimg):
-    HLS = cv2.cvtColor(rgbimg, cv2.COLOR_BGR2HLS)
+    HLS = cv2.cvtColor(rgbimg, cv2.COLOR_RGB2HLS)
     # HLS upper and lower limit for white colors
     lower = np.array([10, 0, 90])
     upper = np.array([40, 255, 255])
@@ -171,7 +171,7 @@ def filter_image(img):
 
 
 def warp(image):
-    src = np.float32([[570, 470], [image.shape[1] - 573, 470],
+    src = np.float32([[570, 460], [image.shape[1] - 573, 460],
                       [image.shape[1] - 150, image.shape[0]], [150, image.shape[0]]])
     dst = np.float32([[200, 0], [image.shape[1]-200, 0],
                       [image.shape[1]-200, image.shape[0]], [200, image.shape[0]]])
@@ -190,17 +190,3 @@ def inwarp(image):
     warped = cv2.warpPerspective(
         image, M, (image.shape[1], image.shape[0]), flags=cv2.INTER_LINEAR)
     return warped
-
-
-# def func(img):
-#     return img
-
-
-# for i in vid:
-#     show_vid(i, filter_image)
-#img = cv2.imread(test_images[2])
-# cv2.imshow("Frame",img)
-# # # edge = edge_canny(img)
-# # # cv2.imshow("Frame",255*edge)
-# cv2.waitKey(0)
-# # cv2.destroyAllWindows()

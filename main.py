@@ -1,15 +1,17 @@
 from Detect import Detector
 from moviepy.editor import VideoFileClip
-from filters import filter_image, warp
+import numpy as np
+import cv2
+from filters import filter_image, warp, inwarp
 
 detector = Detector()
 
 
 def process_image(image):
-    filtered_binary = filter_image(image)
+    filtered_binary = filter_image(image) * 255
     binary_warped = warp(filtered_binary)
-    final_image = detector.detect_lanes(binary_warped, image)
-    return final_image
+    result = detector.detect_lanes(binary_warped, image)
+    return result
 
 
 if __name__ == '__main__':

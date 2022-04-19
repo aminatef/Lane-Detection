@@ -129,12 +129,10 @@ class Detector():
             self.prev_polynomials.append(
                 [self.left_polynomial, self.right_polynomial])
             self.best_polynomial = np.mean(self.prev_polynomials, axis=0)
-            visualization = self.visualize(
-                org_img, b_img, self.left_polynomial, self.right_polynomial, left_line_X, right_line_X)
         else:
             self.detect = True
-            visualization = self.visualize(
-                org_img, b_img, left_poly, right_poly, left_line_X, right_line_X)
+        visualization = self.visualize(
+            org_img, b_img, self.best_polynomial[0], self.best_polynomial[1], left_line_X, right_line_X)
 
         return visualization
 
