@@ -2,16 +2,21 @@ from Detect import Detector
 from moviepy.editor import VideoFileClip
 import numpy as np
 import cv2
-from filters import filter_image, warp, inwarp
+from filters import filter_image, warp
+from util import vconcat_resize, hconcat_resize
 
 detector = Detector()
 
 
 def process_image(image):
-    filtered_binary = filter_image(image) * 255
-    binary_warped = warp(filtered_binary)
+    filtered_binary = filter_image(image)
+    binary_warped = warp(filtered_binary * 255)
+    b_img = np.dstack(
+        (binary_warped, binary_warped, binary_warped))*255
+    f_image = np.dstack(
+        (filtered_binary, filtered_binary, filtered_binary))*255
     result = detector.detect_lanes(binary_warped, image)
-    return result
+    return vconcat_resize([result, hconcat_resize([b_img, f_image])])
 
 
 if __name__ == '__main__':

@@ -87,3 +87,34 @@ def draw_poly(org_img, b_img, left_poly, right_poly, rad_cur, car_offset):
     cv2.putText(result, 'Radius of Curvature = ' + str(int(np.round(rad_cur))
                                                        ) + '(m)', (30, 80), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 2)
     return result
+
+
+def hconcat_resize(img_list,
+                   interpolation=cv2.INTER_CUBIC):
+    # take minimum hights
+    h_min = min(img.shape[0]
+                for img in img_list)
+
+    # image resizing
+    im_list_resize = [cv2.resize(img,
+                                 (int(img.shape[1] * h_min / img.shape[0]),
+                                  h_min), interpolation=interpolation)
+                      for img in img_list]
+
+    # return final image
+    return cv2.hconcat(im_list_resize)
+
+
+def vconcat_resize(img_list, interpolation=cv2.INTER_CUBIC):
+    # take minimum width
+    w_min = min(img.shape[1]
+                for img in img_list)
+
+    # resizing images
+    im_list_resize = [cv2.resize(img,
+                                 (w_min, int(img.shape[0]
+                                             * w_min / img.shape[1])),
+                                 interpolation=interpolation)
+                      for img in img_list]
+    # return final image
+    return cv2.vconcat(im_list_resize)
