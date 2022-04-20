@@ -166,10 +166,12 @@ def filter_image(img):
 
     edge = edge_detection(img)
     mag_binary = mag_thresh(img, sobel_kernel=3, mag_thresh=(3, 255))
-    dir_binary = dir_threshold(img, sobel_kernel=3, thresh=(45*np.pi/180, 75*np.pi/180)) 
+    dir_binary = dir_threshold(
+        img, sobel_kernel=3, thresh=(45*np.pi/180, 75*np.pi/180))
     binary_output = np.zeros_like(mag_binary)
     c_thresh = color_thersh_(img)
-    binary_output[((edge == 1)|c_thresh==1) & ((mag_binary == 1) | (dir_binary == 1))] = 1
+    binary_output[((edge == 1) | c_thresh == 1) & (
+        (mag_binary == 1) | (dir_binary == 1))] = 1
     return binary_output
 
 
