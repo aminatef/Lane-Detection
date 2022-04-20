@@ -17,9 +17,9 @@ def process_image(image):
         (binary_warped, binary_warped, binary_warped))*255
     f_image = np.dstack(
         (filtered_binary, filtered_binary, filtered_binary))*255
-    result = detector.detect_lanes(binary_warped, image)
+    result, out_img = detector.detect_lanes(binary_warped, image)
     if mode == '-d' or mode == '--debug':
-        return vconcat_resize([result, hconcat_resize([b_img, f_image])])
+        return vconcat_resize([result, hconcat_resize([b_img, f_image, out_img])])
     elif mode == '-p' or mode == '--prod':
         return result
     else:

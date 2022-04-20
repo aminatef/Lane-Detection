@@ -77,6 +77,10 @@ def draw_poly(org_img, b_img, left_poly, right_poly, rad_cur, car_offset):
     cv2.polylines(out_img, np.int32([right_line_XY]), isClosed=False, color=(
         255, 219, 130), thickness=8)
 
+    result_warp = cv2.addWeighted(
+        np.dstack(
+            (b_img, b_img, b_img))*255, 1, out_img, 0.3, 0)
+
     window_img_unwrapped = inwarp(out_img)
 
     result = cv2.addWeighted(
@@ -86,7 +90,7 @@ def draw_poly(org_img, b_img, left_poly, right_poly, rad_cur, car_offset):
                 [0:5] + 'm left of center', (30, 140), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 2)
     cv2.putText(result, 'Radius of Curvature = ' + str(int(np.round(rad_cur))
                                                        ) + '(m)', (30, 80), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 2)
-    return result
+    return result, result_warp
 
 
 def hconcat_resize(img_list,
