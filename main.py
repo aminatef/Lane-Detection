@@ -1,3 +1,4 @@
+import sys
 from Detect import Detector
 from moviepy.editor import VideoFileClip
 import numpy as np
@@ -20,8 +21,9 @@ def process_image(image):
 
 
 if __name__ == '__main__':
+    input_path = sys.argv[1]
     white_output = 'challenge_video_out.mp4'
-    clip1 = VideoFileClip("videos/challenge_video.mp4")
+    clip1 = VideoFileClip(input_path)
     # NOTE: this function expects color images!!
     white_clip = clip1.fl_image(process_image)
     white_clip.write_videofile(white_output, audio=False)
