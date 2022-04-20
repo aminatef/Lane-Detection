@@ -7,6 +7,7 @@ from filters import filter_image, warp
 from util import vconcat_resize, hconcat_resize
 
 detector = Detector()
+mode = sys.argv[2]
 
 
 def process_image(image):
@@ -17,7 +18,12 @@ def process_image(image):
     f_image = np.dstack(
         (filtered_binary, filtered_binary, filtered_binary))*255
     result = detector.detect_lanes(binary_warped, image)
-    return vconcat_resize([result, hconcat_resize([b_img, f_image])])
+    if mode == '-d' or mode == '--debug':
+        return vconcat_resize([result, hconcat_resize([b_img, f_image])])
+    elif mode == '-p' or mode == '--prod':
+        return result
+    else:
+        return result
 
 
 if __name__ == '__main__':
