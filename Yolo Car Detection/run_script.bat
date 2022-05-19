@@ -1,2 +1,2 @@
 @echo off
-python main.py %1 %2
+python YOLO_Car_Detection.py %1 %2 %3
