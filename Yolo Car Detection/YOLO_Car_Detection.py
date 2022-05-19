@@ -127,7 +127,7 @@ class yolo_model():
 
 def main(cfg_path, weights_path, dataset_path):
     yolo = yolo_model(cfg_path, weights_path, dataset_path)
-    pred_img = yolo.predict(cv2.imread('img112.jpg'))
+    # pred_img = yolo.predict(cv2.imread('img112.jpg'))
     # start = time.time()
     show_vid("project_video.mp4", yolo.predict)
     # print(time.time()-start)
@@ -136,9 +136,8 @@ def main(cfg_path, weights_path, dataset_path):
     # plt.show()
 
 
-
 if __name__ == '__main__':
     cfg_path = sys.argv[1]
     weights_path = sys.argv[2]
     dataset_path = sys.argv[3]
-    main(cfg_path,weights_path, dataset_path)
+    main(cfg_path, weights_path, dataset_path)
